@@ -1,0 +1,2 @@
+# DodoBotJS
+Bot for discord
