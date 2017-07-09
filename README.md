@@ -33,18 +33,32 @@ node index.js
 
 #### Available normal commands:
 ```hi``` - "Hello World!"
+
 ```help``` - Displays help
+
 ```cat```- Img of a cat
+
 ```r8waifu``` - Rates your waifu
+
 ```compliment``` - Compliments you
+
 ```meme``` - Displays a meme
+
 ```say + line``` - Echos your line
+
 ```ping``` - Ping
+
 ```join``` - Joins a voice chanell
+
 ```leave``` - Leaves the voice channel
+
 ```sound + soundName``` - plays a sound from the Sound folder (!sound filename)
+
 ```play + filename``` - plays a song from a playlist
+
 #### Admin commands: 
+
 ```setgame``` - Sets the "playing game"
+
 ```del + howMany``` - Deletes howMany messages
 
