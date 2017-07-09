@@ -411,4 +411,4 @@ bot.on('message',(message) => {
 
 });
 
-bot.login('Mjc3NDU4NzQxMDUyNTcxNjQ4.C3kqJg.14EXvfVyNksKVK0nf3kZG95bRmY');
+bot.login('token');
