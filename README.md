@@ -31,5 +31,20 @@ node index.js
 
 ### Usage
 
-Available normal commands: ```hi``` - "Hello World!"\n ```help``` - Displays help\n\n ```cat```- Img of a cat\n\n```r8waifu``` - Rates your waifu\n\n```compliment``` - Compliments you\n\n```meme``` - Displays a meme\n ```say + line``` - Echos your line\n ```ping``` - Ping\n ```join``` - Joins a voice chanell\n ```leave``` - Leaves the voice channel \n\n```sound + soundName``` - plays a sound (how, x, bird, some, laugh, yaaa, nigga, norm)\n\n```play + num[1-30]``` - plays a song from a playlist\n\n\nAdmin commands: ```setgame``` - Sets the "playing game"\n ```del + howMany``` - Deletes howMany messages
+#### Available normal commands:
+```hi``` - "Hello World!"
+```help``` - Displays help
+```cat```- Img of a cat
+```r8waifu``` - Rates your waifu
+```compliment``` - Compliments you
+```meme``` - Displays a meme
+```say + line``` - Echos your line
+```ping``` - Ping
+```join``` - Joins a voice chanell
+```leave``` - Leaves the voice channel
+```sound + soundName``` - plays a sound from the Sound folder (!sound filename)
+```play + filename``` - plays a song from a playlist
+#### Admin commands: 
+```setgame``` - Sets the "playing game"
+```del + howMany``` - Deletes howMany messages
 
