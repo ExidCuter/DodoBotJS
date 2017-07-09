@@ -31,6 +31,10 @@ node index.js
 
 ### Usage
 
+```
+prefix + command
+```
+
 #### Available normal commands:
 ```hi``` - "Hello World!"
 
