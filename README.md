@@ -56,6 +56,16 @@ node index.js
 
 ```play + filename``` - plays a song from a playlist
 
+```shoot``` - Shoots you
+
+```shoot + @person``` - shoots @person
+
+```kachiga``` - kachiga meme
+
+```quoted + @person "what"``` - Quotes a preson
+
+```quote + person``` - Posts a random quote from that person
+
 #### Admin commands: 
 
 ```setgame``` - Sets the "playing game"
