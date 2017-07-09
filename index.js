@@ -1,7 +1,7 @@
-const Discord = require('discord.js');
-const youtubeStream = require('youtube-audio-stream');
+﻿const Discord = require('discord.js');
 const bot = new Discord.Client();
 var ffmpeg = require('ffmpeg');
+var ajax = require('ajax-request');
 
 bot.on('ready', () => {
   	console.log('I\'m Online\nI\'m Online');
@@ -155,10 +155,22 @@ bot.on('message',(message) => {
 	var result = args.join(' ');
 	memePost++;
 	console.log(memePost);
-	if(memePost>50){
+	if(memePost>100){
 		memePost=0;
-		var roll2 = Math.floor(Math.random() * 790)  + 1;
-    	message.channel.sendMessage('http://www2.arnes.si/~djese1/MEME/'+roll2+'.jpg');
+        ajax({
+          url: 'http://192.168.1.27:3000/api/meme/random',
+          method: 'GET',
+          json: true
+        }, function(err, res, body) {
+            if(err){
+                console.log(err);
+            }
+            else{
+                console.log(body[0].file);
+                message.channel.sendMessage("Title: "+ body[0].title);
+                message.channel.sendMessage(body[0].file);
+            }
+        });
 	}
 	if (message.author.bot) return;
 
@@ -191,20 +203,55 @@ bot.on('message',(message) => {
 		var ist = false;
 		for(var i = 0;i<result.length;i++){
 			if(!ist){
-				quoteGuy+=result[i];
-				if(result[i]==' '){
+                if(result[i]==' '){
 					ist = true;
 				}
+                else quoteGuy+=result[i];
 			}
 			else{
 				quote+=result[i];
 			}
 		}
-		message.channel.sendMessage("ok sugar");
+        quoteGuy = quoteGuy.toLowerCase();
+        console.log("tola je to'"+quoteGuy+"'");
+		message.channel.send("ok sugar");
 		message.channel.fetchMessages({limit: 2}).then(messages => message.channel.bulkDelete(messages));
-		message.channel.sendMessage(quote + " ~ ©" + quoteGuy + ", 2017");
-	}
+		message.channel.send(quote + " ~ ©" + quoteGuy + ", 2017");
 
+        ajax({
+          url: 'http://192.168.1.27:3000/api/dodobot/quote',
+          method: 'POST',
+          data: {
+              who: quoteGuy,
+              what: quote
+          },
+          json: true
+        },function(err, res, body) {
+
+        });
+	}else if(message.content.startsWith(prefix+'quote')) {
+        console.log("'"+result+"'");
+        result = result.toLowerCase();
+        ajax({
+          url: 'http://192.168.1.27:3000/api/dodobot/quote/' + result,
+          method: 'GET',
+          json: true
+        }, function(err, res, body) {
+            if(err){
+                console.log(err);
+            }
+            else{
+                if (body.length===0) {
+                    message.channel.send('No quotes from "' + result + '"');
+                }
+                else {
+                    console.log(body[0]);
+                    var rand =  Math.floor(Math.random() * body.length);
+                    message.channel.send(body[rand].what + " ~ ©" + body[rand].who + ", 2017");
+                }
+            }
+        });
+    }
 	if(message.content.startsWith(prefix+'ow')) {
 		var zblj = false;
 		if (result == "quick")
@@ -269,9 +316,21 @@ bot.on('message',(message) => {
 		message.channel.fetchMessages({limit: messagecount}).then(messages => message.channel.bulkDelete(messages));
   	}
 
-	if (message.content.startsWith(prefix + 'meme')) {
-		var roll = Math.floor(Math.random() * 790)  + 1;
-    	message.channel.sendMessage('http://www2.arnes.si/~djese1/MEME/'+roll+'.jpg');
+    if (message.content.startsWith(prefix + 'meme')) {
+        ajax({
+          url: 'http://192.168.1.27:3000/api/meme/random',
+          method: 'GET',
+          json: true
+        }, function(err, res, body) {
+            if(err){
+                console.log(err);
+            }
+            else{
+                console.log(body[0].file);
+                message.channel.sendMessage("Title: "+ body[0].title);
+                message.channel.sendMessage(body[0].file);
+            }
+        });
   	}
 
    if (message.content.startsWith(prefix + 'join')) {
@@ -343,21 +402,7 @@ bot.on('message',(message) => {
 	}
 	//dispatcher = connection.playFile('./Audio/lel.mp3');
 
-	if(message.content.startsWith(prefix + 'yt')){
-		if(inChannel){
-			if(result=='')message.channel.sendMessage("No video!");
-			else{
-				try {
-    				youtubeStream(result).pipe(res);
-  				}
-				catch (exception) {
-					message.channel.sendMessage("Error!!");
-  				}
-			}
-		}
-		else message.channel.sendMessage("I'm not in a voice channel!");
 
-	}
 	if(message.content.startsWith(prefix + 'shoot')){
 		if(result=='')message.channel.sendMessage("Boom! You are now deded!");
 		else  message.channel.sendMessage("Boom! "+result+" is deded!");
