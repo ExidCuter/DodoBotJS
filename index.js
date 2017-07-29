@@ -8,7 +8,7 @@ var voice = require('./functions/voice.js');
 var bank = require('./functions/bank.js');
 var meme = require('./functions/meme.js');
 
-var music = new Discord.WebhookClient('338368072765145090', 'HOfnb7bLXkAL4EfdwAPLx-6unefGg-pngjnSGUUJXGZOCYKP8VBcYx0GdP_UchTEcS4F');
+var music = new Discord.WebhookClient('webhookID', 'token');
 
 var prefix ='!';
 var memePost = 0;
@@ -164,4 +164,4 @@ bot.on('message',(message) => {
   	}
 });
 
-bot.login('YourBotTokken');
+bot.login('YourBotToken');
