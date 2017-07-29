@@ -6,9 +6,13 @@ var help = require('./functions/help.js');
 var quotes = require('./functions/quotes.js');
 var voice = require('./functions/voice.js');
 var bank = require('./functions/bank.js');
-var meme = require('./functions/meme.js');
+var meme = require('./functions/meme.js')
+var fs = require("fs");
 
-var music = new Discord.WebhookClient('webhookID', 'token');
+var token = fs.readFileSync('token.txt', 'utf8').trim();
+var webhookID = fs.readFileSync('webhookID.txt', 'utf8').trim();
+
+var music = new Discord.WebhookClient(webhookID, token);
 
 var prefix ='!';
 var memePost = 0;
@@ -51,117 +55,102 @@ bot.on('guildBanRemove',(guild, user) => {
 });
 
 bot.on('message',(message) => {
-    let args = message.content.split(' ').slice(1);
+    let line = message.content.split(' ');
+    let args = line.slice(1);
 	var result = args.join(' ');
+    var command = line[0]; 
 	memePost++;
+
 	if(memePost>100){
 		memePost=0;
         meme.meme(message);
 	}
 	if (message.author.id == "277458741052571648") return;
 
-	if(message.content.startsWith(prefix+'help')) {
-        help.getHelp(message);
+    switch(command) {
+        case prefix+'help':
+            help.getHelp(message);
+            break;
+        case prefix+'hi':
+            misc.hi(message);
+            break;
+        case prefix+'kachiga':
+            misc.kachiga(message);
+            break;
+        case prefix+'compliment':
+            misc.getCompliment(message);
+            break;
+        case prefix+'r8waifu':
+            misc.waifu(message, result);
+            break;
+        case prefix+'quoted':
+            quotes.quoted(message, result);
+            break;
+        case prefix+'quote':
+            quotes.quote(message, result);
+            break;
+        case prefix+'cat':
+            message.channel.send('https://i.ytimg.com/vi/tntOCGkgt98/maxresdefault.jpg');
+            break;
+        case prefix+'setgame':
+            if(message.author.id != '161795217803051008') break;
+            if (!result) result = null;
+            bot.user.setGame(result);
+            break;
+        case prefix+'say':
+            misc.say(message, result);
+            break;
+        case prefix+'lmgtfy':
+            misc.lmgtfy(message, result);
+            break;
+        case prefix+'ping':
+            misc.ping(message);
+            break;
+        case prefix+'del':
+            if(message.author.id != '161795217803051008') break;
+            let messagecount = parseInt(result) + 1;
+            message.channel.fetchMessages({limit: messagecount}).then(messages => message.channel.bulkDelete(messages));
+            break;
+        case prefix+'meme':
+            meme.meme(message);
+            break;
+        case prefix+'join':
+            voice.join(message, result);
+            break;
+        case prefix+'leave':
+            voice.leave(message, result);
+            break;
+        case prefix+'sound':
+            voice.sound(message, result);
+            break;
+        case prefix+'play':
+            voice.play(message, result);
+            break;
+        case prefix+'song':
+            voice.song(message, result);
+            break;
+        case prefix+'yt':
+            voice.yt(message, result);
+            break;
+        case prefix+'stop':
+            voice.stop(message);
+            break;
+        case prefix+'sp':
+            voice.sp(message, result);
+            break;
+        case prefix+'shoot':
+            misc.shoot(message, result);
+            break;
+        case prefix+'bank':
+            bank.bank(message, result);
+            break;
+        case prefix+'payday':
+            bank.payday(message, result);
+            break;
+        case prefix+'slot':
+            bank.slot(message, result);
+            break;
     }
-
-    if(message.content.startsWith(prefix+'hi')) {
-        misc.hi(message);
-    }
-
-    if(message.content.startsWith(prefix+'kachiga')) {
-        misc.kachiga(message);
-    }
-
-	if(message.content.startsWith(prefix+'compliment')) {
-        misc.getCompliment(message);
-    }
-
-	if(message.content.startsWith(prefix+'r8waifu')) {
-		misc.waifu(message, result);
-    }
-
-	if(message.content.startsWith(prefix+'quoted')) {
-		quotes.quoted(message, result);
-	}
-    else if(message.content.startsWith(prefix+'quote')) {
-        quotes.quote(message, result);
-    }
-
-    if(message.content== prefix+'cat'){
-        message.channel.send('https://i.ytimg.com/vi/tntOCGkgt98/maxresdefault.jpg');
-    }
-
-    if (message.content.startsWith(prefix + 'setgame') && message.author.id=='161795217803051008') {
-		if (!result) {
-			result = null;
-		}
-		bot.user.setGame(result);
-    }
-
-	if (message.content.startsWith(prefix + 'say')) {
-		misc.say(message, result);
-    }
-
-    if (message.content.startsWith(prefix + 'lmgtfy')) {
-        misc.lmgtfy(message, result);
-  	}
-
-    if (message.content.startsWith(prefix + 'ping')) {
-    	misc.ping(message);
-  	}
-
-  	if (message.content.startsWith(prefix + "del") && message.author.id=='161795217803051008') { // admin user
-		var messagecount = parseInt(result) + 1;
-		message.channel.fetchMessages({limit: messagecount}).then(messages => message.channel.bulkDelete(messages));
-  	}
-
-    if (message.content.startsWith(prefix + 'meme')) {
-        meme.meme(message);
-  	}
-
-   if (message.content.startsWith(prefix + 'join')) {
-       voice.join(message, result);
-	}
-
-	else if (message.content.startsWith(prefix + 'leave')) {
-		voice.leave(message, result);
-	}
-
-	if(message.content.startsWith(prefix + 'sound')){
-		voice.sound(message, result);
-	}
-	if(message.content.startsWith(prefix + 'play')){
-		voice.play(message, result);
-	}
-    if(message.content.startsWith(prefix + 'song')){
-        voice.song(message, result);
-    }
-
-    if(message.content.startsWith(prefix + 'yt')){
-        voice.yt(message, result);
-    }
-
-	if(message.content.startsWith(prefix + 'stop')){
-		voice.stop(message);
-	}
-
-    if(message.content.startsWith(prefix + 'sp')) {
-        voice.sp(message, result);
-    }
-
-	if(message.content.startsWith(prefix + 'shoot')){
-		misc.shoot(message, result);
-	}
-
-    if (message.content.startsWith(prefix + 'bank')) {
-        bank.bank(message, result);
-  	}
-    if (message.content.startsWith(prefix + 'payday')){
-        bank.payday(message, result);
-    }
-    if (message.content.startsWith(prefix + 'slot')) {
-        bank.slot(message, result);
-  	}
 });
 
-bot.login('YourBotToken');
+bot.login(token);
