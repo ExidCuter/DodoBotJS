@@ -9,11 +9,9 @@ var bank = require('./functions/bank.js');
 var meme = require('./functions/meme.js')
 var fs = require("fs");
 
-var token = fs.readFileSync('token.txt', 'utf8').trim();
-var webhookID = fs.readFileSync('webhookID.txt', 'utf8').trim();
-var webhookToken = fs.readFileSync('webhookToken.txt', 'utf8').trim();
+var tokens = JSON.parse(fs.readFileSync('tokens.json', 'utf8'));
 
-var music = new Discord.WebhookClient(webhookID, webhookToken);
+var music = new Discord.WebhookClient(tokens.WebHookID, tokens.WebHookToken);
 
 var prefix ='!';
 var memePost = 0;
@@ -59,7 +57,7 @@ bot.on('message',(message) => {
     let line = message.content.split(' ');
     let args = line.slice(1);
 	var result = args.join(' ');
-    var command = line[0]; 
+    var command = line[0];
 	memePost++;
 
 	if(memePost>100){
@@ -154,4 +152,4 @@ bot.on('message',(message) => {
     }
 });
 
-bot.login(token);
+bot.login(tokens.BotToken);
