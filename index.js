@@ -11,8 +11,9 @@ var fs = require("fs");
 
 var token = fs.readFileSync('token.txt', 'utf8').trim();
 var webhookID = fs.readFileSync('webhookID.txt', 'utf8').trim();
+var webhookToken = fs.readFileSync('webhookToken.txt', 'utf8').trim();
 
-var music = new Discord.WebhookClient(webhookID, token);
+var music = new Discord.WebhookClient(webhookID, webhookToken);
 
 var prefix ='!';
 var memePost = 0;
