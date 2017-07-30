@@ -1,3 +1,8 @@
+var google = require('google');
+
+google.resultsPerPage = 3;
+var nextCounter = 0;
+
 var array = [
 	"ur smile is contagious.",
 	"u look great today.",
@@ -111,7 +116,7 @@ module.exports.getCompliment = function(message) {
     message.reply(array[Math.floor(Math.random() * array.length)  + 1]);
 };
 module.exports.kachiga = function(message) {
-	message.reply('http://www2.arnes.si/~djese1/kachiga.png');
+	message.reply('http://the-dodo.xyz/memes/kachiga.png');
 };
 
 module.exports.hi = function(message) {
@@ -119,8 +124,8 @@ module.exports.hi = function(message) {
 };
 
 module.exports.waifu = function(message, result) {
-	if(result=='')message.reply('no waifu :(');
-	else if(result=='Rem'||result=='rem') message.reply('Your waifu __**'+result+'**__ is rated at ```11/10```');
+	if(result==='')message.reply('no waifu :sob:');
+	else if(result==='Rem'||result==='rem') message.reply('Your waifu __**'+result+'**__ is rated at ```11/10```');
 	else message.reply('Your waifu __**'+result+'**__ is rated at ```'+(Math.floor(Math.random() * 7) + 3) + '/10```');
 };
 
@@ -135,6 +140,9 @@ module.exports.say = function(message, result) {
 		message.channel.send('what?');
 	}
 	else{
+		message.channel.send('ok sugar');
+		var messagecount = parseInt(result);
+		message.channel.fetchMessages({limit: 2}).then(messages => message.channel.bulkDelete(messages));
 		message.channel.send(temp);
 	}
 };
@@ -144,6 +152,19 @@ module.exports.ping = function(message) {
 };
 
 module.exports.shoot = function(message, result) {
-	if(result=='')message.channel.send(":boom: :gun: \nYou are now deded!");
-	else  message.channel.send(":boom: :gun: \n"+result+" is deded!");
-}
+	if(result=='')message.channel.send("Boom! :gun: \nYou are now deded!");
+	else  message.channel.send("Boom! :gun: \n"+result+" is deded!");
+};
+
+module.exports.google = function(message, result) {
+	var send = "";
+	google(result, function (err, res){
+	  	if (err) console.error(err);
+	  	for (var i = 0; i < res.links.length; ++i) {
+	    	var link = res.links[i];
+	    	send = send + link.title + ' - ' + link.href + '\n';
+	    	send = send + '```'+ link.description+ '```' + "\n";
+	  	}
+		message.channel.send(send);
+	});
+};

@@ -84,7 +84,7 @@ module.exports.yt = function(message, result) {
                  var stream = ytdl(result, { filter: 'audioonly' });
                  dispatcher = connectionTo.playStream(stream);
                  ytdl.getInfo(result, function(err, info) {
-                     music.send({embeds: [{
+                     /*music.send({embeds: [{
                          color: 3447003,
                          title: "Now playing",
                          url: result,
@@ -96,7 +96,7 @@ module.exports.yt = function(message, result) {
                              icon_url: "https://pbs.twimg.com/media/C21m_KAVIAAvuH6.jpg",
                              text: "© DodoBot"
                          }
-                     }]});
+                     }]});*/
                  });
              } catch (e) {
                  console.log(e);

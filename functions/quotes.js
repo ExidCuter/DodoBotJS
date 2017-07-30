@@ -17,6 +17,8 @@ module.exports.quoted = function(message, result) {
     }
     quoteGuy = quoteGuy.toLowerCase();
     console.log("tola je to'"+quoteGuy+"'");
+    message.channel.send("ok sugar");
+    message.channel.fetchMessages({limit: 2}).then(messages => message.channel.bulkDelete(messages));
     message.channel.send(quote + " ~ ©" + quoteGuy + ", 2017");
     ajax({
         url: 'http://192.168.1.150:3000/api/dodobot/quote', //api address

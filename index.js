@@ -1,5 +1,6 @@
 ﻿const Discord = require('discord.js');
 const bot = new Discord.Client();
+var fs = require("fs");
 
 var misc = require('./functions/misc.js');
 var help = require('./functions/help.js');
@@ -7,9 +8,10 @@ var quotes = require('./functions/quotes.js');
 var voice = require('./functions/voice.js');
 var bank = require('./functions/bank.js');
 var meme = require('./functions/meme.js')
-var fs = require("fs");
 
 var tokens = JSON.parse(fs.readFileSync('tokens.json', 'utf8'));
+
+console.log('loging in to:'+tokens.BotToken);
 
 var music = new Discord.WebhookClient(tokens.WebHookID, tokens.WebHookToken);
 
@@ -148,6 +150,9 @@ bot.on('message',(message) => {
             break;
         case prefix+'slot':
             bank.slot(message, result);
+            break;
+        case prefix+'google':
+            misc.google(message, result);
             break;
     }
 });

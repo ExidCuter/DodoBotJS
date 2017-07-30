@@ -194,11 +194,11 @@ function slotMashinas(money) {
     slotMashina[3][0] = endGame;
     if (slotMashina[1][0] === slotMashina[1][1] && slotMashina[1][1] === slotMashina[1][2]) {
         money = money*3;
-        out = "Three the same. WOW! Your money is doubled!";
+        out = "Three the same. WOW! +3x!";
     }
     else if (slotMashina[1][0] === slotMashina[1][1] || slotMashina[1][1] === slotMashina[1][2] || slotMashina[1][0] === slotMashina[1][2]) {
         money = money*1.5;
-        out = "Two the same. Your money is doubled!";
+        out = "Two the same. +1.5x!";
     }
     else {
         money = money*-1;
