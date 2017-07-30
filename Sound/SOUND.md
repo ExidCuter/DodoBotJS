@@ -4,4 +4,4 @@
 
 Name your MP3 file `NameForTheBot.mp3`
 
-Example: `!play something` filename: something.mp3
+Example: `!sound something` filename: something.mp3
