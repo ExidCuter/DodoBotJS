@@ -1,6 +1,6 @@
-## Here go files for the play command
+# Here go files for the play command
 
-# Usage 
+## Usage 
 
 Name your MP3 file `song+NameForTheBot.mp3`
 
