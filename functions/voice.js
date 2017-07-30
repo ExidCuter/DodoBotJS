@@ -14,7 +14,7 @@ module.exports.join = function(message) {
      } else {
          message.channel.send('Joining...').then(() => {
              voiceChan.join().then(connection => {
-                 message.channel.send('Joined successfully. Play music using !song or on http://the-dodo.xyz/songs.html').catch(error => message.channel.send(error));
+                 message.channel.send('Joined successfully. Play music using !play').catch(error => message.channel.send(error));
                  inChannel=true;
                  console.log(inChannel);
                  connectionTo = connection;
